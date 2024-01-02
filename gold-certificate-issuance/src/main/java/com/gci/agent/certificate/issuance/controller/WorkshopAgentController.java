@@ -9,7 +9,7 @@ import com.gci.agent.certificate.issuance.model.dto.LoginDto;
 import com.gci.agent.certificate.issuance.model.dto.LogoutDto;
 import com.gci.agent.certificate.issuance.model.dto.RefreshTokenDto;
 import com.gci.agent.certificate.issuance.model.dto.WorkshopAgentDto;
-import com.gci.agent.certificate.issuance.service.impl.WorkshopAgentService;
+import com.gci.agent.certificate.issuance.service.WorkshopAgentService;
 import feign.FeignException;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
