@@ -1,0 +1,74 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: gci-authentication
+  config:
+    import: "optional:configserver:http://localhost:8088/"
+  main:
+    allow-bean-definition-overriding: true
+  h2:
+    console:
+      enabled: true
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+      client:
+        registration:
+          keycloak:
+            client-id: gci-workshop-agent
+            client-secret: zIgckxC5D67LxT4g7bFrwulRDvwNQtxu
+            authorization-grant-type: authorization_code
+            scope: openid, profile, roles
+            redirect-uri: http://localhost:8091/api/login/oauth2/gci-workshop-agent
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+  cloud:
+    config:
+      enabled: false
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:h2:mem:gci
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+logging:
+  level:
+    root: debug
+    com:
+      gci:
+        certificate:
+          issuance:
+            client: debug
+springdoc:
+  swagger-ui:
+    url: /api/api-docs
+    operations-sorter: method
+  api-docs:
+    path: /api-docs
+keycloak:
+  auth-server-url: http://localhost:8180
+  realm: gci-oauth2-realm
+  admin-client-id: gci_workshop_admin
+  agent-client-id: gci_workshop_agent
+  agent-client-secret: tK3TIpbDWfuB6P2tbGF36GL35lHYY49Y
+  admin-client-secret: iSc8KlcbEmHfC4CiCleKz0FxuC6SY20b
+  grant-type:
+    refresh: refresh_token
+    access: password
+  admin:
+    username: admin
+    password: admin
+application:
+  version: 1.0.0
+
