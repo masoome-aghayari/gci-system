@@ -1,0 +1,70 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: gci-service
+  main:
+    allow-bean-definition-overriding: true
+  config:
+    import: "optional:configserver:http://localhost:8088/"
+  h2:
+    console:
+      enabled: true
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+      client:
+        registration:
+          keycloak:
+            client-id: gci-workshop-agent
+            client-secret: zIgckxC5D67LxT4g7bFrwulRDvwNQtxu
+            authorization-grant-type: authorization_code
+            scope: openid, profile, roles
+            redirect-uri: http://localhost:8091/
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+  cloud:
+    config:
+      enabled: false
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:h2:mem:gci
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  profiles:
+    active: dev
+    default: dev
+logging:
+  level:
+    root: debug
+    com:
+      gci:
+        certificate:
+          issuance:
+            client: debug
+springdoc:
+  swagger-ui:
+    url: /api-docs
+    operations-sorter: method
+  api-docs:
+    path: /api-docs
+keycloak:
+  auth-server-url: http://localhost:8180
+  realm: gci-oauth2-realm
+feign:
+  client:
+    name: GCI-AUTHENTICATION
+application:
+  version: 1.0.0
+
