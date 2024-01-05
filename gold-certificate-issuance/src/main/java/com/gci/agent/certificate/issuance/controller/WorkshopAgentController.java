@@ -19,10 +19,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/agent")
+@RequestMapping(WorkshopAgentController.BASE_URL)
 @RequiredArgsConstructor
 public class WorkshopAgentController {
     private final WorkshopAgentService workshopAgentService;
+    public static final String BASE_URL = "/agent";
+    private static final String LOGIN = "/login";
+    private static final String LOGOUT = "/logout";
+    private static final String REFRESH_TOKEN = "/refresh-token";
 
     @PostMapping()
     public ResponseEntity register(@RequestBody WorkshopAgentDto workshopAgentDto) {
@@ -30,17 +34,17 @@ public class WorkshopAgentController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
+    @PostMapping(LOGIN)
     public AccessTokenResponse login(@NotNull @RequestBody LoginDto loginDto) throws FeignException {
         return workshopAgentService.login(loginDto);
     }
 
-    @PostMapping("/refresh-token")
+    @PostMapping(REFRESH_TOKEN)
     public AccessTokenResponse refreshToken(@NotNull @RequestBody RefreshTokenDto refreshTokenDto) throws FeignException {
         return workshopAgentService.refreshToken(refreshTokenDto);
     }
 
-    @GetMapping("/logout")
+    @GetMapping(LOGOUT)
     public ResponseEntity logout(LogoutDto logoutDto) {
         workshopAgentService.logout(logoutDto);
         return new ResponseEntity<>(HttpStatus.OK);
