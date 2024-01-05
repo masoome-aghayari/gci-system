@@ -22,14 +22,16 @@ public class CertificateIssuanceServiceImpl implements CertificateIssuanceServic
     private final CertificateRequestMapper mapper;
 
     @Override
-    public CertificateRequestDto registerCertificateIssuanceRequest(CertificateRequestDto requestDto) throws DuplicateGoldException {
+    public CertificateRequestDto registerCertificateIssuanceRequest(CertificateRequestDto requestDto)
+            throws DuplicateGoldException {
         var goldCode = requestDto.getGold().getCode();
         checkGoldCodeDuplication(goldCode);
         return doRegister(requestDto);
     }
 
     @Override
-    public CertificateRequestDto getCertificateIssuanceRequestStatus(String trackingCode) throws RequestNotFoundException, InvalidTrackingCodeException {
+    public CertificateRequestDto getCertificateIssuanceRequestStatus(String trackingCode)
+            throws RequestNotFoundException, InvalidTrackingCodeException {
         checkTrackingCodeValidity(trackingCode);
         var result = repository.findByTrackingCode(trackingCode);
         var certificateRequest = result.orElseThrow(() ->
@@ -38,11 +40,21 @@ public class CertificateIssuanceServiceImpl implements CertificateIssuanceServic
     }
 
     private void checkTrackingCodeValidity(String trackingCode) throws InvalidTrackingCodeException {
+        checkTrackingCodeLengthValidity(trackingCode);
+        checkTrackingCodeFormatValidity(trackingCode);
+    }
+
+    private void checkTrackingCodeFormatValidity(String trackingCode) throws InvalidTrackingCodeException {
         try {
-            Integer.parseInt(trackingCode);
+                Integer.parseInt(trackingCode);
         } catch (NumberFormatException e) {
             throw new InvalidTrackingCodeException("only digits are allowed", e);
         }
+    }
+
+    private void checkTrackingCodeLengthValidity(String trackingCode) throws InvalidTrackingCodeException {
+        if (trackingCode.length() != 8)
+            throw new InvalidTrackingCodeException("Invalid tracking code length");
     }
 
     private CertificateRequestDto doRegister(CertificateRequestDto requestDto) {

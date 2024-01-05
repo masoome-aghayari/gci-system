@@ -9,4 +9,8 @@ public class InvalidTrackingCodeException extends Exception {
     public InvalidTrackingCodeException(String message, Exception cause) {
         super(message, cause);
     }
+
+    public InvalidTrackingCodeException(String message) {
+        super(message       );
+    }
 }
