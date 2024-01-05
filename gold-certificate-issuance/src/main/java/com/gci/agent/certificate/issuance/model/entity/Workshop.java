@@ -5,6 +5,7 @@ package com.gci.agent.certificate.issuance.model.entity;
  * @since 12/28/23
  */
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -22,7 +23,7 @@ public class Workshop {
     @Id
     private String id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private WorkshopAgent agent;
 
     private String workshopCode;

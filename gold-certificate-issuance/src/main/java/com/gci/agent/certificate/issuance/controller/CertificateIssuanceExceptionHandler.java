@@ -6,6 +6,7 @@ package com.gci.agent.certificate.issuance.controller;
  */
 
 import com.gci.agent.certificate.issuance.exceptions.DuplicateGoldException;
+import com.gci.agent.certificate.issuance.exceptions.NoSuchWorkshopFoundException;
 import com.gci.agent.certificate.issuance.exceptions.RequestNotFoundException;
 import com.gci.agent.certificate.issuance.model.ErrorResponse;
 import jakarta.ws.rs.ServiceUnavailableException;
@@ -56,7 +57,7 @@ public class CertificateIssuanceExceptionHandler {
         return getErrorResponse(ex.getMessage(), headers, HttpStatus.FORBIDDEN, request.getContextPath());
     }
 
-    @ExceptionHandler({RequestNotFoundException.class, NoResourceFoundException.class})
+    @ExceptionHandler({RequestNotFoundException.class, NoResourceFoundException.class, NoSuchWorkshopFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponse> requestNotFoundExceptionHandler(Exception ex,
                                                                          HttpHeaders headers,

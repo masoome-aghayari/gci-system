@@ -14,7 +14,7 @@ import java.lang.annotation.*;
  */
 @Documented
 @Constraint(validatedBy = DigitalValidator.class)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @ReportAsSingleViolation
 public @interface Digital {

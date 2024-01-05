@@ -2,13 +2,14 @@ package com.gci.agent.certificate.issuance.mapper;
 
 import com.gci.agent.certificate.issuance.model.dto.CertificateRequestDto;
 import com.gci.agent.certificate.issuance.model.entity.CertificateRequest;
-import com.gci.agent.certificate.issuance.model.entity.WorkshopAgent;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {GoldMapper.class, WorkshopAgent.class})
+@Mapper(componentModel = "spring", uses = {GoldMapper.class})
 public interface CertificateRequestMapper {
 
-    CertificateRequestDto entityToDto(CertificateRequest certificateRequest);
+    @Mapping(target = "agentId", ignore = true)
+    CertificateRequestDto entityToDto(CertificateRequest entity);
 
-    CertificateRequest dtoToEntity(CertificateRequestDto certificateRequestDto);
+    CertificateRequest dtoToEntity(CertificateRequestDto dto);
 }

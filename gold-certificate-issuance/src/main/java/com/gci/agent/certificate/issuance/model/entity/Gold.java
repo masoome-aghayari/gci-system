@@ -34,7 +34,7 @@ public class Gold {
     private GoldType type;
 
     @ManyToOne
-    private Workshop workShop;
+    private Workshop workshop;
 
     private Date produceDate;
 

@@ -47,12 +47,12 @@ spring:
     default: dev
 logging:
   level:
-    root: debug
+    root: error
     com:
       gci:
         certificate:
           issuance:
-            client: debug
+            client: error
 springdoc:
   swagger-ui:
     url: /api-docs

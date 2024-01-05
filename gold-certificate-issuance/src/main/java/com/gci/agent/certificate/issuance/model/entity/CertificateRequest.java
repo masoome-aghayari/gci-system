@@ -5,11 +5,14 @@ package com.gci.agent.certificate.issuance.model.entity;
  * @since 12/28/23
  */
 
+import com.gci.agent.certificate.issuance.model.enums.CertificateIssuanceStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,11 +24,10 @@ public class CertificateRequest {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Gold gold;
 
-    @ManyToOne
-    private WorkshopAgent requester;
-
     private String trackingCode;
+    private CertificateIssuanceStatus status;
+    private Date requestDate;
 }

@@ -6,8 +6,9 @@ package com.gci.agent.certificate.issuance.controller;
  */
 
 import com.gci.agent.certificate.issuance.exceptions.DuplicateGoldException;
-import com.gci.agent.certificate.issuance.exceptions.InvalidTrackingCodeException;
+import com.gci.agent.certificate.issuance.exceptions.NoSuchWorkshopFoundException;
 import com.gci.agent.certificate.issuance.exceptions.RequestNotFoundException;
+import com.gci.agent.certificate.issuance.model.annotation.Digital;
 import com.gci.agent.certificate.issuance.model.dto.CertificateRequestDto;
 import com.gci.agent.certificate.issuance.service.CertificateIssuanceService;
 import jakarta.validation.Valid;
@@ -26,12 +27,14 @@ public class CertificateIssuanceController {
     private final CertificateIssuanceService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public CertificateRequestDto issue(@Valid @RequestBody CertificateRequestDto request) throws DuplicateGoldException {
+    public CertificateRequestDto issue(@Valid @RequestBody CertificateRequestDto request)
+            throws DuplicateGoldException, NoSuchWorkshopFoundException {
         return service.registerCertificateIssuanceRequest(request);
     }
 
     @GetMapping(value = ISSUE_STATUS, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CertificateRequestDto issuanceStatus(@PathVariable String trackingCode) throws RequestNotFoundException, InvalidTrackingCodeException {
+    public CertificateRequestDto issuanceStatus(@Digital(message = "trackingCode must be a fully 8 digits string")
+                                                @PathVariable String trackingCode) throws RequestNotFoundException {
         return service.getCertificateIssuanceRequestStatus(trackingCode);
     }
 }

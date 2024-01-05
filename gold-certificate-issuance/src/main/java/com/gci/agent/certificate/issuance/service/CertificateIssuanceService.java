@@ -1,7 +1,7 @@
 package com.gci.agent.certificate.issuance.service;
 
 import com.gci.agent.certificate.issuance.exceptions.DuplicateGoldException;
-import com.gci.agent.certificate.issuance.exceptions.InvalidTrackingCodeException;
+import com.gci.agent.certificate.issuance.exceptions.NoSuchWorkshopFoundException;
 import com.gci.agent.certificate.issuance.exceptions.RequestNotFoundException;
 import com.gci.agent.certificate.issuance.model.dto.CertificateRequestDto;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CertificateIssuanceService {
 
-    CertificateRequestDto registerCertificateIssuanceRequest(CertificateRequestDto request) throws DuplicateGoldException;
+    CertificateRequestDto registerCertificateIssuanceRequest(CertificateRequestDto request) throws DuplicateGoldException, NoSuchWorkshopFoundException;
 
-    CertificateRequestDto getCertificateIssuanceRequestStatus(String trackingCode) throws RequestNotFoundException, InvalidTrackingCodeException;
+    CertificateRequestDto getCertificateIssuanceRequestStatus(String trackingCode) throws RequestNotFoundException;
 }

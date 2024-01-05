@@ -18,10 +18,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class WorkshopAgentDto extends PersonDto {
-
-    @NotBlank
     private String username;
-
-    @NotBlank
     private String password;
 }

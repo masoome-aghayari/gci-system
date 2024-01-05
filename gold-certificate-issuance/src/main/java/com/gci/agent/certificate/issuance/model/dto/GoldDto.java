@@ -9,7 +9,6 @@ import com.gci.agent.certificate.issuance.model.annotation.Digital;
 import com.gci.agent.certificate.issuance.model.enums.GoldType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,8 +35,8 @@ public class GoldDto {
     @NotNull
     private GoldType type;
 
-    @NotNull
-    private WorkshopDto workShop;
+    @NotBlank
+    private String workshopId;
 
     @NotNull
     private Date produceDate;
