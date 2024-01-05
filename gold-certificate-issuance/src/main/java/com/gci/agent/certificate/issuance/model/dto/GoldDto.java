@@ -5,9 +5,11 @@ package com.gci.agent.certificate.issuance.model.dto;
  * @since 12/28/23
  */
 
+import com.gci.agent.certificate.issuance.model.annotation.Digital;
 import com.gci.agent.certificate.issuance.model.enums.GoldType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +27,7 @@ public class GoldDto {
     private String id;
 
     @NotBlank
+    @Digital(message = "gold code must be a fully 8 digits string")
     private String code;
 
     @NotNull

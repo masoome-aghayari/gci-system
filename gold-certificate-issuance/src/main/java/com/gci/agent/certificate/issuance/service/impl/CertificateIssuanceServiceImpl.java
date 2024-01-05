@@ -31,30 +31,11 @@ public class CertificateIssuanceServiceImpl implements CertificateIssuanceServic
 
     @Override
     public CertificateRequestDto getCertificateIssuanceRequestStatus(String trackingCode)
-            throws RequestNotFoundException, InvalidTrackingCodeException {
-        checkTrackingCodeValidity(trackingCode);
+            throws RequestNotFoundException {
         var result = repository.findByTrackingCode(trackingCode);
         var certificateRequest = result.orElseThrow(() ->
                 new RequestNotFoundException("No request with trackingCode: " + trackingCode + " found"));
         return mapper.entityToDto(certificateRequest);
-    }
-
-    private void checkTrackingCodeValidity(String trackingCode) throws InvalidTrackingCodeException {
-        checkTrackingCodeLengthValidity(trackingCode);
-        checkTrackingCodeFormatValidity(trackingCode);
-    }
-
-    private void checkTrackingCodeFormatValidity(String trackingCode) throws InvalidTrackingCodeException {
-        try {
-                Integer.parseInt(trackingCode);
-        } catch (NumberFormatException e) {
-            throw new InvalidTrackingCodeException("only digits are allowed", e);
-        }
-    }
-
-    private void checkTrackingCodeLengthValidity(String trackingCode) throws InvalidTrackingCodeException {
-        if (trackingCode.length() != 8)
-            throw new InvalidTrackingCodeException("Invalid tracking code length");
     }
 
     private CertificateRequestDto doRegister(CertificateRequestDto requestDto) {
