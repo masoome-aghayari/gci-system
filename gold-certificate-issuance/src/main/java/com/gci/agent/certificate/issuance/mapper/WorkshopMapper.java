@@ -9,9 +9,7 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "spring", uses = WorkshopAgentMapper.class)
 public interface WorkshopMapper {
 
-    @Mappings({
-            @Mapping(target = "agentId", ignore = true),
-    })
+    @Mapping(target = "agentId", ignore = true)
     WorkshopDto entityToDto(Workshop workshop);
 
     @Mappings({
