@@ -1,7 +1,6 @@
 package com.gci.agent.certificate.issuance.model.annotation;
 
 import com.gci.agent.certificate.issuance.validator.DigitalValidator;
-import com.gci.agent.certificate.issuance.validator.NameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.ReportAsSingleViolation;

@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(WorkshopAgentController.BASE_URL)
 @RequiredArgsConstructor
 public class WorkshopAgentController {
-    private final WorkshopAgentService workshopAgentService;
     public static final String BASE_URL = "/agent";
     private static final String LOGIN = "/login";
     private static final String LOGOUT = "/logout";
     private static final String REFRESH_TOKEN = "/refresh-token";
+    private final WorkshopAgentService workshopAgentService;
 
     @PostMapping()
     public ResponseEntity register(@RequestBody WorkshopAgentDto workshopAgentDto) {

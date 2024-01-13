@@ -6,7 +6,6 @@ package com.gci.agent.certificate.issuance.model.dto;
  */
 
 import com.gci.agent.certificate.issuance.model.enums.CertificateIssuanceStatus;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
@@ -18,11 +17,10 @@ import java.util.Date;
 public class CertificateRequestDto {
 
 
+    private final Date requestDate = new Date();
     @NonNull
     private GoldDto gold;
-
     private String trackingCode;
     private CertificateIssuanceStatus status;
-    private final Date requestDate = new Date();
     private String agentId;
 }

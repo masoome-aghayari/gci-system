@@ -6,7 +6,6 @@ package com.gci.agent.certificate.issuance.service.impl;
  */
 
 import com.gci.agent.certificate.issuance.model.dto.*;
-import com.gci.agent.certificate.issuance.model.dto.WorkshopAgentDto;
 import com.gci.agent.certificate.issuance.service.WorkshopAgentService;
 import com.gci.agent.certificate.issuance.service.feign.AuthenticationFeignClient;
 import lombok.RequiredArgsConstructor;

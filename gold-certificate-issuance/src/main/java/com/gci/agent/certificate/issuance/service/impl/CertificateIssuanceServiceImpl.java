@@ -11,7 +11,6 @@ import com.gci.agent.certificate.issuance.exceptions.RequestNotFoundException;
 import com.gci.agent.certificate.issuance.mapper.CertificateRequestMapper;
 import com.gci.agent.certificate.issuance.model.dto.CertificateRequestDto;
 import com.gci.agent.certificate.issuance.model.entity.Workshop;
-import com.gci.agent.certificate.issuance.model.entity.WorkshopAgent;
 import com.gci.agent.certificate.issuance.model.enums.CertificateIssuanceStatus;
 import com.gci.agent.certificate.issuance.repository.CertificateRequestRepository;
 import com.gci.agent.certificate.issuance.repository.WorkshopRepository;
