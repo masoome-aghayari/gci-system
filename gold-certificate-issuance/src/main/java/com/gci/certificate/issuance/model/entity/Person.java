@@ -5,8 +5,6 @@ package com.gci.certificate.issuance.model.entity;
  * @since 12/28/23
  */
 
-import com.gci.certificate.issuance.model.annotation.Name;
-import com.gci.certificate.issuance.model.annotation.NationalCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,16 +24,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Name
     private String name;
-
-    @Name
     private String surname;
-
-    @NationalCode
     private String nationalCode;
-
-    @Column
     private boolean deleted;
 
 }

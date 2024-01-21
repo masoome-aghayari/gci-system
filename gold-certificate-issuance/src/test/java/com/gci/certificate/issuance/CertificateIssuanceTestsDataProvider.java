@@ -6,11 +6,8 @@ package com.gci.certificate.issuance;
  */
 
 import com.gci.certificate.issuance.mapper.CertificateRequestMapper;
-import com.gci.certificate.issuance.mapper.WorkshopMapper;
 import com.gci.certificate.issuance.model.dto.CertificateRequestDto;
 import com.gci.certificate.issuance.model.dto.GoldDto;
-import com.gci.certificate.issuance.model.dto.WorkshopAgentDto;
-import com.gci.certificate.issuance.model.dto.WorkshopDto;
 import com.gci.certificate.issuance.model.entity.CertificateRequest;
 import com.gci.certificate.issuance.model.entity.Gold;
 import com.gci.certificate.issuance.model.entity.Workshop;
@@ -45,9 +42,6 @@ public class CertificateIssuanceTestsDataProvider {
     @MockBean
     protected CertificateRequestMapper mapper;
 
-    @MockBean
-    protected WorkshopMapper workshopMapper;
-
     UUID workshopId = getRandomId();
 
     UUID agentId = getRandomId();
@@ -75,25 +69,6 @@ public class CertificateIssuanceTestsDataProvider {
 
     private String getEightDigitsRandomString() {
         return String.valueOf(new Random().nextInt(10_000_000, 100_000_000));
-    }
-
-    private WorkshopDto getWorkshopDto() {
-        return WorkshopDto.builder()
-                .id(workshopId)
-                .workshopCode(getEightDigitsRandomString())
-                .licenseNumber(getEightDigitsRandomString())
-                .agentId(agentId)
-                .build();
-    }
-
-    private WorkshopAgentDto getWorkshopAgentDto() {
-        return WorkshopAgentDto.builder()
-                .id(agentId)
-                .name("John")
-                .surname("Doe")
-                .nationalCode("4310928838")
-                .username("John_Doe")
-                .build();
     }
 
     private UUID getRandomId() {
@@ -124,27 +99,27 @@ public class CertificateIssuanceTestsDataProvider {
     private Workshop getWorkshop(UUID workshopId) {
         return Workshop.builder()
                 .id(workshopId)
-                .agent(getWorkshopAgent(getWorkshopAgentDto()))
+                .agent(getWorkshopAgent())
                 .deleted(false)
                 .licenseNumber(getEightDigitsRandomString())
                 .workshopCode(getEightDigitsRandomString())
                 .build();
     }
 
-    private WorkshopAgent getWorkshopAgent(WorkshopAgentDto workshopAgentDto) {
+    private WorkshopAgent getWorkshopAgent() {
         return WorkshopAgent.builder()
-                .id(workshopAgentDto.getId())
-                .nationalCode(workshopAgentDto.getNationalCode())
-                .name(workshopAgentDto.getName())
-                .surname(workshopAgentDto.getSurname())
-                .username(workshopAgentDto.getUsername())
-                .password(workshopAgentDto.getPassword())
+                .id(agentId)
+                .nationalCode("4310928838")
+                .name("John")
+                .surname("Doe")
+                .username("j_d")
+                .password("1234")
                 .deleted(false)
                 .build();
     }
 
     protected Optional<Workshop> getWorkshop() {
-        var workshop = getWorkshop(getWorkshopDto().getId());
+        var workshop = getWorkshop(workshopId);
         return Optional.of(workshop);
     }
 
