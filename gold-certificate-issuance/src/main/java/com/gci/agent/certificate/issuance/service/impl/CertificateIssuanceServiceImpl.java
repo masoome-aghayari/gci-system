@@ -56,17 +56,14 @@ public class CertificateIssuanceServiceImpl implements CertificateIssuanceServic
         return requestDto;
     }
 
-    private Workshop getWorkshop(String workshopId, String agentId) throws NoSuchWorkshopFoundException {
+    private Workshop getWorkshop(UUID workshopId, UUID agentId) throws NoSuchWorkshopFoundException {
         var workshop = workshopRepository.findByIdAndAgent_Id(workshopId, agentId);
         return workshop.orElseThrow(() -> new NoSuchWorkshopFoundException("workshop id or agentId is not correct"));
     }
 
     private void checkGoldCodeDuplication(String goldCode) throws DuplicateGoldException {
-        try {
-            assert repository.existsByGold_Code(goldCode) : "Another gold piece with code: " + goldCode + " exists";
-        } catch (AssertionError e) {
-            throw new DuplicateGoldException(e.getMessage());
-        }
+        if (repository.existsByGold_Code(goldCode))
+            throw new DuplicateGoldException("Another gold piece with code: " + goldCode + " exists");
     }
 
 }
