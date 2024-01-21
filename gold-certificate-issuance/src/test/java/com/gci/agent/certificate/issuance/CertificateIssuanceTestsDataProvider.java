@@ -12,17 +12,17 @@ import com.gci.agent.certificate.issuance.model.dto.GoldDto;
 import com.gci.agent.certificate.issuance.model.dto.WorkshopAgentDto;
 import com.gci.agent.certificate.issuance.model.dto.WorkshopDto;
 import com.gci.agent.certificate.issuance.model.entity.CertificateRequest;
+import com.gci.agent.certificate.issuance.model.entity.Gold;
 import com.gci.agent.certificate.issuance.model.entity.Workshop;
+import com.gci.agent.certificate.issuance.model.entity.WorkshopAgent;
 import com.gci.agent.certificate.issuance.model.enums.CertificateIssuanceStatus;
 import com.gci.agent.certificate.issuance.model.enums.GoldType;
 import com.gci.agent.certificate.issuance.repository.CertificateRequestRepository;
 import com.gci.agent.certificate.issuance.repository.WorkshopRepository;
 import com.gci.agent.certificate.issuance.service.impl.CertificateIssuanceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -31,10 +31,10 @@ import java.util.Random;
 import java.util.UUID;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class CertificateIssuanceTestsDataProvider {
+
     @Autowired
-    protected MockMvc mockMvc;
+    protected CertificateIssuanceServiceImpl service;
 
     @MockBean
     protected CertificateRequestRepository certificateRequestRepository;
@@ -42,25 +42,24 @@ public class CertificateIssuanceTestsDataProvider {
     @MockBean
     protected WorkshopRepository workshopRepository;
 
-    @Autowired
-    protected CertificateIssuanceServiceImpl service;
-
     @MockBean
     protected CertificateRequestMapper mapper;
 
     @MockBean
     protected WorkshopMapper workshopMapper;
 
-    String workshopId = getRandomId();
-    String agentId = getRandomId();
+    UUID workshopId = getRandomId();
 
-    String goldId = getRandomId();
+    UUID agentId = getRandomId();
+
+    UUID goldId = getRandomId();
 
     protected CertificateRequestDto getCertificateRequestDto() {
         return CertificateRequestDto.builder()
                 .trackingCode(getEightDigitsRandomString())
                 .gold(getGoldDto())
                 .status(CertificateIssuanceStatus.AWAITING_ADMIN_APPROVAL)
+                .agentId(agentId)
                 .build();
     }
 
@@ -87,7 +86,7 @@ public class CertificateIssuanceTestsDataProvider {
                 .build();
     }
 
-    private WorkshopAgentDto getWorkshopAgent() {
+    private WorkshopAgentDto getWorkshopAgentDto() {
         return WorkshopAgentDto.builder()
                 .id(agentId)
                 .name("John")
@@ -97,17 +96,55 @@ public class CertificateIssuanceTestsDataProvider {
                 .build();
     }
 
-    private String getRandomId() {
-        return UUID.randomUUID().toString();
+    private UUID getRandomId() {
+        return UUID.randomUUID();
     }
 
     protected CertificateRequest getCertificateRequest(CertificateRequestDto certificateRequestDto) {
-        return mapper.dtoToEntity(certificateRequestDto);
+        return CertificateRequest.builder()
+                .requestDate(certificateRequestDto.getRequestDate())
+                .gold(getGold(getGoldDto()))
+                .status(certificateRequestDto.getStatus())
+                .trackingCode(certificateRequestDto.getTrackingCode())
+                .build();
+    }
+
+    private Gold getGold(GoldDto goldDto) {
+        return Gold.builder()
+                .code(goldDto.getCode())
+                .id(goldDto.getId())
+                .produceDate(goldDto.getProduceDate())
+                .type(goldDto.getType())
+                .weight(goldDto.getWeight())
+                .deleted(false)
+                .workshop(getWorkshop(goldDto.getWorkshopId()))
+                .build();
+    }
+
+    private Workshop getWorkshop(UUID workshopId) {
+        return Workshop.builder()
+                .id(workshopId)
+                .agent(getWorkshopAgent(getWorkshopAgentDto()))
+                .deleted(false)
+                .licenseNumber(getEightDigitsRandomString())
+                .workshopCode(getEightDigitsRandomString())
+                .build();
+    }
+
+    private WorkshopAgent getWorkshopAgent(WorkshopAgentDto workshopAgentDto) {
+        return WorkshopAgent.builder()
+                .id(workshopAgentDto.getId())
+                .nationalCode(workshopAgentDto.getNationalCode())
+                .name(workshopAgentDto.getName())
+                .surname(workshopAgentDto.getSurname())
+                .username(workshopAgentDto.getUsername())
+                .password(workshopAgentDto.getPassword())
+                .deleted(false)
+                .build();
     }
 
     protected Optional<Workshop> getWorkshop() {
-        var workshop = workshopMapper.dtoToEntity(getWorkshopDto());
-        workshop.setDeleted(false);
+        var workshop = getWorkshop(getWorkshopDto().getId());
         return Optional.of(workshop);
     }
 
