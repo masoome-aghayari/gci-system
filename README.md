@@ -4,7 +4,7 @@ The Gold Certificate System is a platform designed to issue certificates for eve
 
 ## Features
 
-- **Agent Authentication:** Agents must log in to the system to request a certificate for a piece of gold.
+- **Agent Authentication:** Agents must login to the system to request a certificate for a piece of gold.
 
 - **GCI Authentication:** The system uses the GCI Authentication module for registering and authenticating agents.
 
