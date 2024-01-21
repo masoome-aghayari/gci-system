@@ -14,6 +14,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Data
 @Builder
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Workshop {
     @Id
-    private String id;
+    private UUID id;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private WorkshopAgent agent;

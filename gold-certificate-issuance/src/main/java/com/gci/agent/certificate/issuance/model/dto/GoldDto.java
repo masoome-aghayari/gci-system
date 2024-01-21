@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -23,7 +24,7 @@ import java.util.Date;
 @Builder
 public class GoldDto {
 
-    private String id;
+    private UUID id;
 
     @NotBlank
     @Digital(message = "gold code must be a fully 8 digits string")
@@ -36,7 +37,7 @@ public class GoldDto {
     private GoldType type;
 
     @NotBlank
-    private String workshopId;
+    private UUID workshopId;
 
     @NotNull
     private Date produceDate;

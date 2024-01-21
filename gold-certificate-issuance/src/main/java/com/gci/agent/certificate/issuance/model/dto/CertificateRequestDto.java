@@ -9,6 +9,7 @@ import com.gci.agent.certificate.issuance.model.enums.CertificateIssuanceStatus;
 import lombok.*;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -16,11 +17,12 @@ import java.util.Date;
 @Builder
 public class CertificateRequestDto {
 
-
     private final Date requestDate = new Date();
+
     @NonNull
     private GoldDto gold;
+
     private String trackingCode;
     private CertificateIssuanceStatus status;
-    private String agentId;
+    private UUID agentId;
 }

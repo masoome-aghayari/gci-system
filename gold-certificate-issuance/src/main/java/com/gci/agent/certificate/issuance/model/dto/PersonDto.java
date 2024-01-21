@@ -10,12 +10,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.UUID;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonDto {
-    private String id;
+    private UUID id;
     private String name;
     private String surname;
     private String nationalCode;

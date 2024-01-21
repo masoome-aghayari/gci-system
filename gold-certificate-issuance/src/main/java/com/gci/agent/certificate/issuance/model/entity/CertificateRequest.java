@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -22,7 +23,7 @@ import java.util.Date;
 public class CertificateRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private Gold gold;

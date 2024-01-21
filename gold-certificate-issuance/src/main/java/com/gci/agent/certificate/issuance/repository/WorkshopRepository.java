@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /*
  * @author masoome.aghayari
@@ -12,8 +13,8 @@ import java.util.Optional;
  */
 
 @Repository
-public interface WorkshopRepository extends JpaRepository<Workshop, String> {
+public interface WorkshopRepository extends JpaRepository<Workshop, UUID> {
 
-    Optional<Workshop> findByIdAndAgent_Id(String workshopId, String agentId);
+    Optional<Workshop> findByIdAndAgent_Id(UUID workshopId, UUID agentId);
 
 }
