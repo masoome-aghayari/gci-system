@@ -8,7 +8,7 @@ package com.gci.agent.certificate.issuance.controller;
 import com.gci.agent.certificate.issuance.exceptions.DuplicateGoldException;
 import com.gci.agent.certificate.issuance.exceptions.NoSuchWorkshopFoundException;
 import com.gci.agent.certificate.issuance.exceptions.RequestNotFoundException;
-import com.gci.agent.certificate.issuance.model.ErrorResponse;
+import com.gci.agent.certificate.issuance.model.dto.ErrorResponse;
 import jakarta.ws.rs.ServiceUnavailableException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;

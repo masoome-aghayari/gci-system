@@ -1,4 +1,4 @@
-package com.gci.agent.certificate.issuance.model;
+package com.gci.agent.certificate.issuance.model.dto;
 
 /*
  * @author masoome.aghayari
