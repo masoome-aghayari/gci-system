@@ -26,26 +26,28 @@ public class WorkshopAgentController {
     private static final String LOGIN = "/login";
     private static final String LOGOUT = "/logout";
     private static final String REFRESH_TOKEN = "/refresh-token";
+
     private final WorkshopAgentService workshopAgentService;
 
     @PostMapping()
-    public ResponseEntity register(@RequestBody WorkshopAgentDto workshopAgentDto) {
+    public ResponseEntity register(@NotNull @RequestBody WorkshopAgentDto workshopAgentDto) {
         workshopAgentService.register(workshopAgentDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping(LOGIN)
-    public AccessTokenResponse login(@NotNull @RequestBody LoginDto loginDto) throws FeignException {
-        return workshopAgentService.login(loginDto);
+    public ResponseEntity<AccessTokenResponse> login(@NotNull @RequestBody LoginDto loginDto) throws FeignException {
+        return new ResponseEntity<>(workshopAgentService.login(loginDto), HttpStatus.OK);
     }
 
     @PostMapping(REFRESH_TOKEN)
-    public AccessTokenResponse refreshToken(@NotNull @RequestBody RefreshTokenDto refreshTokenDto) throws FeignException {
-        return workshopAgentService.refreshToken(refreshTokenDto);
+    public ResponseEntity<AccessTokenResponse> refreshToken(@NotNull @RequestBody RefreshTokenDto refreshTokenDto)
+            throws FeignException {
+        return new ResponseEntity<>(workshopAgentService.refreshToken(refreshTokenDto), HttpStatus.OK);
     }
 
-    @GetMapping(LOGOUT)
-    public ResponseEntity logout(LogoutDto logoutDto) {
+    @PostMapping(LOGOUT)
+    public ResponseEntity logout(@NotNull @RequestBody LogoutDto logoutDto) {
         workshopAgentService.logout(logoutDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
